@@ -1,0 +1,21 @@
+{
+  "name": "vertilia/pdo-wrap",
+  "description": "PDO wrapper library to simplify basic DB operations",
+  "keywords": ["PDO", "wrapper", "database"],
+  "license": "BSD-2-Clause",
+  "type": "library",
+  "autoload": {
+    "exclude-from-classmap": [
+      "/tests/"
+    ],
+    "psr-4": {
+      "Vertilia\\PdoWrap\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  }
+}
