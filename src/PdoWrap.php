@@ -9,17 +9,8 @@ use PDO;
 use PDOException;
 use PDOStatement;
 
-class PdoWrap
+class PdoWrap extends PDO
 {
-    public function __construct(protected PDO $pdo)
-    {
-    }
-
-    public function getPdo(): PDO
-    {
-        return $this->pdo;
-    }
-
     /**
      * Prepare a statement for $query and bind parameters by value using provided type indicators.
      *
@@ -98,7 +89,7 @@ class PdoWrap
     {
         [$query_parsed, $params_bound] = $this->parseParams($query, $params);
 
-        $stmt = $this->pdo->prepare($query_parsed);
+        $stmt = $this->prepare($query_parsed);
         foreach ($params_bound as $bind) {
             $stmt->bindValue(...$bind);
         }
@@ -114,7 +105,7 @@ class PdoWrap
      * @return int|false number of affected rows or false on error
      * @throws PDOException
      */
-    public function exec(string $query, ?array $params = null): int|false
+    public function queryExecute(string $query, ?array $params = null): int|false
     {
         $stmt = $this->prepareBind($query, $params);
         return $stmt->execute() ? $stmt->rowCount() : false;
